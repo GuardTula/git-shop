@@ -1,0 +1,2 @@
+# git-shop
+Shop prog
