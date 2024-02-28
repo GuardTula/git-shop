@@ -269,36 +269,36 @@ end;
 procedure TSprFiterFrm.BitBtn7Click(Sender: TObject);
 var i,j: Integer;
 begin
-    AtrSelectStr:= SprAtrFltrStr;
+  AtrSelectStr:= SprAtrFltrStr;
 
-    Application.CreateForm(TAtrChangeFrm, AtrChangeFrm);
-    if AtrChangeFrm.ShowModal = mrOk then
+  Application.CreateForm(TAtrChangeFrm, AtrChangeFrm);
+  if AtrChangeFrm.ShowModal = mrOk then
+  begin
+
+    if AtrSelectStr <> '' then
+    begin // Считаем количество элементов в строке
+      j:= 1;
+      for i:= 0 to Length(AtrSelectStr)-1 do
+        if AtrSelectStr[i] = ',' then Inc(j);
+    end
+    else j:= 0;
+    StaticText3.Tag:= j;
+
+    SprAtrFltrStr:= AtrSelectStr;
+
+    if StaticText3.Tag = 0 then
     begin
-
-      if AtrSelectStr <> '' then
-      begin // Считаем количество элементов в строке
-        j:= 1;
-        for i:= 0 to Length(AtrSelectStr)-1 do
-          if AtrSelectStr[i] = ',' then Inc(j);
-      end
-      else j:= 0;
-      SprFiterFrm.StaticText3.Tag:= j;
-
-      SprAtrFltrStr:= AtrSelectStr;
-
-      if StaticText3.Tag = 0 then
-      begin
-        StaticText3.Caption:= ' Нет фильтрации';
-        StaticText3.Color:= clWindow;
-      end
-      else
-      begin
-        StaticText3.Caption:= ' По ' + StaticText3.Tag.ToString;
-        StaticText3.Color:= clYellow;
-      end;
+      StaticText3.Caption:= ' Нет фильтрации';
+      StaticText3.Color:= clWindow;
+    end
+    else
+    begin
+      StaticText3.Caption:= ' По ' + StaticText3.Tag.ToString;
+      StaticText3.Color:= clYellow;
     end;
+  end;
 
-    AtrChangeFrm.Free;
+  AtrChangeFrm.Free;
 end;
 
 procedure TSprFiterFrm.ToolButton2Click(Sender: TObject);

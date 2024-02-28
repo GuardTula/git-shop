@@ -1,5 +1,5 @@
 //****************************************************************************//
-//                            © Guard  2003-2023                              //
+//                            © Guard  2003-2024                              //
 //****************************************************************************//
 unit AtrChange;
 
@@ -89,7 +89,7 @@ var
 
 implementation
 
-uses ShopMain, EditEnter, Spr, SprFilter;
+uses ShopMain, EditEnter;
 
 {$R *.dfm}
 procedure TAtrChangeFrm.AtrVTChecked(Sender: TBaseVirtualTree;
@@ -342,7 +342,7 @@ begin
         Data^.AtrId:= ShopMainForm.pFIBService['ATR_ID'];
         Data^.Initialized:= FNode <> nil; // Родительский элемент не найден, возможно еще не записан из базы
         if not VarIsNull(ShopMainForm.pFIBService['PARENT_ATR_ID'])then Data^.ParentAtrId:= ShopMainForm.pFIBService['PARENT_ATR_ID'];
-        if Assigned(SprFiterFrm) then
+//        if Assigned(SprFiterFrm) then
           Data^.AtrChecked:= Pos(',' + ShopMainForm.pFIBService.FieldByName('ATR_ID').AsString + ',', ',' + AtrSelectStr + ',') > 0;
         AtrVT.CheckType[NewNode]:= ctCheckBox;
         if Data^.AtrChecked then

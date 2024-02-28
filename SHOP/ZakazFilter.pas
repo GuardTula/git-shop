@@ -241,25 +241,30 @@ begin
   Application.CreateForm(TAtrChangeFrm, AtrChangeFrm);
   if AtrChangeFrm.ShowModal = mrOk then
   begin
-    ZkzAtrFltrStr:= AtrSelectStr;
+
     if AtrSelectStr <> '' then
     begin // Считаем количество элементов в строке
       j:= 1;
       for i:= 0 to Length(AtrSelectStr)-1 do
         if AtrSelectStr[i] = ',' then Inc(j);
+    end
+    else j:= 0;
+    StaticText3.Tag:= j;
 
-      StaticText3.Caption:= ' Фильтр по ' + j.ToString + ' атрибутам';
-      StaticText3.Color:= clYellow;
+    ZkzAtrFltrStr:= AtrSelectStr;
+
+    if StaticText3.Tag = 0 then
+    begin
+      StaticText3.Caption:= ' Нет фильтрации';
+      StaticText3.Color:= clWindow;
     end
     else
     begin
-      j:= 0;
-      StaticText3.Caption:= ' Нет фильтрации';
-      StaticText3.Color:= clWindow;
+      StaticText3.Caption:= ' По ' + StaticText3.Tag.ToString+ ' атрибутам';
+      StaticText3.Color:= clYellow;
     end;
-
-    StaticText3.Tag:= j;
   end;
+
   AtrChangeFrm.Free;
 end;
 
