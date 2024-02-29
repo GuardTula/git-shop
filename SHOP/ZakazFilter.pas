@@ -439,6 +439,11 @@ begin
     end;
     StaticText2.Caption:= ' Нет фильтрации';
     StaticText2.Color:= clWindow;
+
+    ZkzAtrFltrStr:= ''; // Фильтр по атрибутам
+    StaticText3.Tag:= 0;
+    StaticText3.Caption:= ' Нет фильтрации';
+    StaticText3.Color:= clWindow;
 end;
 
 procedure TZakazFilterFrm.ToolButton2Click(Sender: TObject);
