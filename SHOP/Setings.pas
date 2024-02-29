@@ -690,7 +690,7 @@ procedure TSetingsFrm.BitBtn8Click(Sender: TObject);
 begin
   with OpenDialog2 do
   begin
-    Filter:= 'XML таблицы|*.xml';
+    Filter:= 'XML таблицы (*.xml)|*.xml|Все файлы (*.*)| *.*';
     Title:= 'XML таблицы';
     if Execute then ClientDataSet1.LoadFromFile(FileName);
   end;

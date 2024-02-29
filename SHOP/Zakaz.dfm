@@ -656,16 +656,14 @@ object ZakazFrm: TZakazFrm
     Align = alLeft
     TabOrder = 2
     Visible = False
-    ExplicitHeight = 545
     object PageControl1: TPageControl
       Left = 1
       Top = 1
       Width = 369
-      Height = 541
+      Height = 540
       ActivePage = TabSheet1
       Align = alClient
       TabOrder = 0
-      ExplicitHeight = 543
       object TabSheet1: TTabSheet
         Caption = #1060#1080#1083#1100#1090#1088
       end
@@ -867,7 +865,7 @@ object ZakazFrm: TZakazFrm
     Top = 176
   end
   object frxReport1: TfrxReport
-    Version = '2022.3'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     OldStyleProgress = True
@@ -1191,7 +1189,7 @@ object ZakazFrm: TZakazFrm
     end
   end
   object frxReport2: TfrxReport
-    Version = '2022.3'
+    Version = '2023.1.3'
     DotMatrixReport = False
     EngineOptions.MaxMemSize = 10000000
     IniFile = '\Software\Fast Reports'
@@ -1449,5 +1447,16 @@ object ZakazFrm: TZakazFrm
   object DataSetsContainer1: TDataSetsContainer
     Left = 320
     Top = 144
+  end
+  object ClientDataSet1: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'DataSetProvider1'
+    Left = 400
+    Top = 328
+  end
+  object DataSetProvider1: TDataSetProvider
+    Left = 368
+    Top = 328
   end
 end

@@ -116,7 +116,7 @@ TopLine=322
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Guard\GitCopy\SHOP\ZakazFilter.pas
+EditViewName=Borland.FormDesignerView
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXEF0ckNoYW5nZS5wYXM=]
 Module=D:\Guard\GitCopy\SHOP\AtrChange.pas
@@ -147,4 +147,34 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Guard\GitCopy\SHOP\Spr.pas
+
+[ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFpha2F6LnBhcw==]
+Module=D:\Guard\GitCopy\SHOP\Zakaz.pas
+CursorX=39
+CursorY=1089
+TopLine=1074
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Guard\GitCopy\SHOP\Zakaz.pas
+
+[ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXEludE1vdmUucGFz]
+Module=D:\Guard\GitCopy\SHOP\IntMove.pas
+CursorX=5
+CursorY=688
+TopLine=659
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Guard\GitCopy\SHOP\IntMove.pas
+
+[ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFNldGluZ3MucGFz]
+Module=D:\Guard\GitCopy\SHOP\Setings.pas
+CursorX=76
+CursorY=693
+TopLine=683
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Guard\GitCopy\SHOP\Setings.pas
 

@@ -6,7 +6,7 @@ object ShopMainForm: TShopMainForm
   BorderStyle = bsSingle
   Caption = #1052#1072#1088#1082#1077#1090
   ClientHeight = 154
-  ClientWidth = 1184
+  ClientWidth = 1006
   Color = clBtnFace
   Font.Charset = RUSSIAN_CHARSET
   Font.Color = clWindowText
@@ -24,7 +24,7 @@ object ShopMainForm: TShopMainForm
   object StatusBar1: TStatusBar
     Left = 0
     Top = 133
-    Width = 1184
+    Width = 1006
     Height = 21
     Panels = <
       item
@@ -36,11 +36,12 @@ object ShopMainForm: TShopMainForm
       item
         Width = 50
       end>
+    ExplicitWidth = 1184
   end
   object ToolBar1: TToolBar
     Left = 0
     Top = 0
-    Width = 1184
+    Width = 1006
     Height = 38
     AutoSize = True
     ButtonHeight = 38
@@ -53,6 +54,7 @@ object ShopMainForm: TShopMainForm
     ParentShowHint = False
     ShowHint = False
     TabOrder = 1
+    ExplicitWidth = 1184
     object ToolButton1: TToolButton
       Left = 0
       Top = 0

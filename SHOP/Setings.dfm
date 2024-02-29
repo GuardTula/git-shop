@@ -20,11 +20,9 @@ object SetingsFrm: TSetingsFrm
     Top = 0
     Width = 942
     Height = 605
-    ActivePage = TabSheet5
+    ActivePage = TabSheet6
     Align = alClient
     TabOrder = 0
-    ExplicitWidth = 867
-    ExplicitHeight = 592
     object TabSheet3: TTabSheet
       Caption = #1057#1074#1077#1076#1077#1085#1080#1103' '#1086' '#1086#1088#1075#1072#1085#1080#1079#1072#1094#1080#1080
       ImageIndex = 2
@@ -607,8 +605,6 @@ object SetingsFrm: TSetingsFrm
         Height = 19
         Panels = <>
         SimplePanel = True
-        ExplicitTop = 546
-        ExplicitWidth = 863
       end
       object Memo2: TMemo
         Left = 0
@@ -617,8 +613,6 @@ object SetingsFrm: TSetingsFrm
         Height = 106
         Align = alBottom
         TabOrder = 6
-        ExplicitTop = 440
-        ExplicitWidth = 863
       end
       object BitBtn13: TBitBtn
         Left = 13
@@ -629,8 +623,6 @@ object SetingsFrm: TSetingsFrm
         Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '
         TabOrder = 7
         OnClick = BitBtn13Click
-        ExplicitLeft = 9
-        ExplicitTop = 409
       end
       object BitBtn14: TBitBtn
         Left = 100
@@ -641,8 +633,6 @@ object SetingsFrm: TSetingsFrm
         Caption = #1042#1099#1087#1086#1083#1085#1080#1090#1100
         TabOrder = 8
         OnClick = BitBtn14Click
-        ExplicitLeft = 90
-        ExplicitTop = 409
       end
       object DBGrid4: TDBGrid
         Left = 0
@@ -666,8 +656,6 @@ object SetingsFrm: TSetingsFrm
         Caption = #1054#1090#1082#1088#1099#1090#1100
         TabOrder = 10
         OnClick = BitBtn20Click
-        ExplicitLeft = 184
-        ExplicitTop = 409
       end
     end
     object TabSheet5: TTabSheet
@@ -752,8 +740,6 @@ object SetingsFrm: TSetingsFrm
         ParentFont = False
         Style = lbOwnerDrawFixed
         TabOrder = 1
-        ExplicitLeft = 474
-        ExplicitHeight = 526
       end
       object Panel1: TPanel
         Left = 0
@@ -762,8 +748,6 @@ object SetingsFrm: TSetingsFrm
         Height = 39
         Align = alBottom
         TabOrder = 2
-        ExplicitTop = 526
-        ExplicitWidth = 863
         object BitBtn7: TBitBtn
           Left = 376
           Top = 6
@@ -826,7 +810,7 @@ object SetingsFrm: TSetingsFrm
       object DBGrid2: TDBGrid
         Left = 0
         Top = 0
-        Width = 863
+        Width = 934
         Height = 378
         Align = alTop
         DataSource = DataSource2
@@ -1095,8 +1079,8 @@ object SetingsFrm: TSetingsFrm
       end
       object Memo1: TMemo
         Left = 0
-        Top = 98
-        Width = 863
+        Top = 110
+        Width = 934
         Height = 467
         Align = alBottom
         ScrollBars = ssVertical
@@ -1109,7 +1093,7 @@ object SetingsFrm: TSetingsFrm
       object DBGrid3: TDBGrid
         Left = 0
         Top = 0
-        Width = 863
+        Width = 934
         Height = 465
         Align = alTop
         DataSource = DataSource3

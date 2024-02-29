@@ -9,7 +9,8 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, ExtCtrls, Grids, DBGrids, StdCtrls, Buttons, Printers,
   ComCtrls, Menus, frxClass, FIBQuery, pFIBQuery, pFIBStoredProc, FIBDataSet,
-  pFIBDataSet, ExcelObj, frxCross, frxFIBComponents, DSContainer, DateUtils;
+  pFIBDataSet, ExcelObj, frxCross, frxFIBComponents, DSContainer, DateUtils,
+  Datasnap.DBClient, Datasnap.Provider;
 
 type
   TZakazFrm = class(TForm)
@@ -99,6 +100,8 @@ type
     ZakazQuerySCLAD: TFIBStringField;
     ZakazQueryALL_O: TFloatField;
     ZakazQueryALL_Z: TFloatField;
+    ClientDataSet1: TClientDataSet;
+    DataSetProvider1: TDataSetProvider;
     procedure LMDButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -1074,12 +1077,20 @@ begin
    if SaveDialog1.Execute then
      with ShopMainForm.pFIBService do
      begin
-       Screen.Cursor:= crHourGlass;
        SelectSQL.Clear;
-       SelectSQL.Add('select Z.* from ZAKAZ Z left join SPR_TOVAR T on T.ITEM = Z.ITEM');
-       SelectSQL.Add('where Z.AUTOR_KOD = ' + IntToStr(User_ID));
+       SelectSQL.Add('select Z.ITEM, Z.KOLVO, Z.MARKET_CODE from ZAKAZ Z left join SPR_TOVAR T on T.ITEM = Z.ITEM');
+       SelectSQL.Add('where Z.AUTOR_KOD = ' + User_ID.ToString);
        SelectSQL.Add('order by T.TOVAR_NAME');
        Open;
+
+       DataSetProvider1.DataSet:= ShopMainForm.pFIBService;
+       ClientDataSet1.Open;
+       ClientDataSet1.SaveToFile(SaveDialog1.FileName);
+       ClientDataSet1.Close;
+       DataSetProvider1.DataSet:= nil;
+
+{
+       Screen.Cursor:= crHourGlass;
        AssignFile(f, SaveDialog1.FileName);
        Rewrite(f);
       try
@@ -1095,9 +1106,10 @@ begin
         CloseFile(f);
         Screen.Cursor:= crDefault;
         FormatSettings.DecimalSeparator:= TmpSep;
-        ShopMainForm.pFIBService.Close;
+
       end;
-      Close;
+}
+       Close;
      end;
 end;
 
