@@ -42,13 +42,11 @@ object SprFrm: TSprFrm
         Align = alClient
         Caption = 'Panel1'
         TabOrder = 0
-        ExplicitWidth = 1202
-        ExplicitHeight = 539
         object DBGrid1: TDBGrid
           Left = 361
           Top = 1
-          Width = 808
-          Height = 529
+          Width = 804
+          Height = 528
           Align = alClient
           Ctl3D = True
           DataSource = DataSource1
@@ -281,12 +279,11 @@ object SprFrm: TSprFrm
           Left = 1
           Top = 1
           Width = 360
-          Height = 529
+          Height = 528
           ActivePage = TabSheet3
           Align = alLeft
           TabOrder = 1
           Visible = False
-          ExplicitHeight = 537
           object TabSheet3: TTabSheet
             Caption = #1060#1080#1083#1100#1090#1088
             ImageIndex = 1
@@ -1676,8 +1673,6 @@ object SprFrm: TSprFrm
       item
         Width = 50
       end>
-    ExplicitTop = 624
-    ExplicitWidth = 1210
   end
   object DataSource1: TDataSource
     DataSet = SprTovar
@@ -2230,7 +2225,7 @@ object SprFrm: TSprFrm
     Top = 470
   end
   object frxReport2: TfrxReport
-    Version = '2022.3'
+    Version = '2023.1.3'
     DotMatrixReport = False
     EngineOptions.MaxMemSize = 10000000
     IniFile = '\Software\Fast Reports'

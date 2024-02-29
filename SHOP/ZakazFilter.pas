@@ -1,5 +1,5 @@
 //****************************************************************************//
-//                              © Guard  2002-2022                            //
+//                              © Guard  2002-2024                          //
 //****************************************************************************//
 unit ZakazFilter;
 
@@ -7,7 +7,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, Buttons, ExtCtrls, IniFiles, ComCtrls, ToolWin, Vcl.Mask;
+  Dialogs, StdCtrls, Buttons, ExtCtrls, IniFiles, ComCtrls, ToolWin, Vcl.Mask,
+  System.ImageList, Vcl.ImgList;
 
 type
   TZakazFilterFrm = class(TForm)
@@ -29,13 +30,6 @@ type
     ZakazFltrComboBox: TComboBox;
     Remark_1FltrEdit: TLabeledEdit;
     SpeedButton1: TSpeedButton;
-    CoolBar1: TCoolBar;
-    ToolBar1: TToolBar;
-    ToolButton1: TToolButton;
-    ToolButton2: TToolButton;
-    ToolButton3: TToolButton;
-    ToolButton4: TToolButton;
-    ToolButton5: TToolButton;
     StaticText3: TStaticText;
     BitBtn7: TBitBtn;
     Label8: TLabel;
@@ -48,6 +42,11 @@ type
     ColorBox3: TColorBox;
     CheckBox4: TCheckBox;
     Label1: TLabel;
+    ToolButton5: TSpeedButton;
+    ToolButton4: TSpeedButton;
+    ToolButton1: TSpeedButton;
+    ToolButton2: TSpeedButton;
+    ImageList1: TImageList;
     procedure ChangeGroupFltBtnClick(Sender: TObject);
     procedure BitBtn5Click(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
@@ -88,7 +87,7 @@ var
 
 implementation
 
-uses Zakaz, ShopMain, DualList, AtrChange;
+uses Zakaz, ShopMain, DualList, AtrChange, SprFilter;
 
 {$R *.dfm}
 constructor TZakazFilterFrm.Create(AOwner: TComponent);
@@ -351,14 +350,24 @@ procedure TZakazFilterFrm.SpeedButton1Click(Sender: TObject);
 begin
    if SpeedButton1.Down then
    begin
+     SpeedButton1.ImageIndex:= 0;
+     SpeedButton1.Hint:= 'Отменить фильтрацию';
+     ToolButton5.Enabled:= True;
+
      GetWhereFilterStr;
      GetHavingFilterStr;
    end
    else
    begin
+     SpeedButton1.ImageIndex:= 6;
+     SpeedButton1.Hint:= 'Применить фильтр';
+     ToolButton5.Enabled:= False;
+
+
      ZakWhereFilterStr:= '';
      ZakHavingFilterStr:= '';
    end;
+
    if FAsChild then
      with ZakazFrm.ZakazQuery do
      begin
@@ -389,7 +398,7 @@ end;
 procedure TZakazFilterFrm.FormCreate(Sender: TObject);
 begin
   LoadZakazFilter(ShopIni, 'ZAKAZFILTR');
-  ToolButton5.Visible:= FAsChild;
+  ToolButton5.Enabled:= FAsChild;
 end;
 
 procedure TZakazFilterFrm.ToolButton4Click(Sender: TObject);

@@ -1899,6 +1899,21 @@ begin
    end;
    ZakazFilterFrm.SpeedButton1.Down:= (ZakazFrm.ZakazQuery.SelectSQL[ZakazFrm.ZakazQuery.SelectSQL.Count - 2]
        + ZakazFrm.ZakazQuery.SelectSQL[ZakazFrm.ZakazQuery.SelectSQL.Count - 4]) <> '';
+   if ZakazFilterFrm.SpeedButton1.Down then
+   begin
+     ZakazFilterFrm.SpeedButton1.Hint:= 'Отменить фильтрацию';
+     ZakazFilterFrm.SpeedButton1.ImageIndex:= 0;
+     ZakazFilterFrm.ToolButton5.Enabled:= True;
+   end
+   else
+   begin
+     ZakazFilterFrm.SpeedButton1.Hint:= 'Применить фильтр';
+     ZakazFilterFrm.SpeedButton1.ImageIndex:= 6;
+     ZakazFilterFrm.ToolButton5.Enabled:= True;
+   end;
+
+
+
    ZakazFrm.ZakazQuery.Active:= True;
    ZakazFrm.ShowModal;
    if not ZakazFrm.SpeedButton2.Down then

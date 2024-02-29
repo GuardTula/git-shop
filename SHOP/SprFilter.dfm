@@ -75,7 +75,7 @@ object SprFiterFrm: TSprFiterFrm
     OnClick = SpeedButton1Click
   end
   object SpeedButton2: TSpeedButton
-    Left = 71
+    Left = 79
     Top = 8
     Width = 57
     Height = 57

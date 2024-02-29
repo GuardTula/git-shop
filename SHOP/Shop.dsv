@@ -110,9 +110,9 @@ EditViewName=D:\Guard\Project\SHOP\ShopMain.pas
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFpha2F6RmlsdGVyLnBhcw==]
 Module=D:\Guard\GitCopy\SHOP\ZakazFilter.pas
-CursorX=36
-CursorY=254
-TopLine=236
+CursorX=18
+CursorY=363
+TopLine=322
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -130,11 +130,21 @@ EditViewName=D:\Guard\GitCopy\SHOP\AtrChange.pas
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFNwckZpbHRlci5wYXM=]
 Module=D:\Guard\GitCopy\SHOP\SprFilter.pas
-CursorX=5
-CursorY=285
-TopLine=269
+CursorX=18
+CursorY=679
+TopLine=651
 LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Guard\GitCopy\SHOP\SprFilter.pas
+
+[ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFNwci5wYXM=]
+Module=D:\Guard\GitCopy\SHOP\Spr.pas
+CursorX=1
+CursorY=306
+TopLine=283
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Guard\GitCopy\SHOP\Spr.pas
 
