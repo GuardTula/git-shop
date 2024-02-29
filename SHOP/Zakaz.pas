@@ -102,6 +102,13 @@ type
     ZakazQueryALL_Z: TFloatField;
     ClientDataSet1: TClientDataSet;
     DataSetProvider1: TDataSetProvider;
+    XML1: TMenuItem;
+    N18: TMenuItem;
+    C1: TMenuItem;
+    N19: TMenuItem;
+    N20: TMenuItem;
+    XML2: TMenuItem;
+    XML3: TMenuItem;
     procedure LMDButton1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -157,6 +164,10 @@ type
     procedure N17Click(Sender: TObject);
     procedure Excel1Click(Sender: TObject);
     procedure ZakazQueryCalcFields(DataSet: TDataSet);
+    procedure XML1Click(Sender: TObject);
+    procedure C1Click(Sender: TObject);
+    procedure XML2Click(Sender: TObject);
+    procedure XML3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -184,6 +195,83 @@ begin
         LMDButton1.Glyph:= nil;
         if Panel3.Visible then ShopMainForm.ImageList1.GetBitmap(17, LMDButton1.Glyph)
         else ShopMainForm.ImageList1.GetBitmap(18, LMDButton1.Glyph);
+end;
+
+procedure TZakazFrm.C1Click(Sender: TObject);
+var curMarket, curItem: String;
+begin
+   with SaveDialog1 do
+   begin
+     InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+     Filter:= 'Файлы заказов (*.xml) |*.xml';
+     DefaultExt:= 'xml';
+   end;
+
+   if SaveDialog1.Execute then
+   begin
+     curItem:= ZakazQuery['ITEM'];
+     curMarket:= FindMarketCode(MarketComboBox.Text).ToString;
+
+     with ClientDataSet1 do
+     begin
+       Close;
+       FieldDefs.Clear;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 14;
+         Name := 'item';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 80;
+         Name := 'tovar_name';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftFloat;
+         Name := 'kolvo';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftInteger;
+         Name := 'sender_market_code';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftInteger;
+         Name := 'dest_market_code';
+       end;
+       CreateDataSet;
+       while not Eof do Delete;
+     end;
+
+     with ZakazQuery do
+     begin
+       DisableControls;
+       First;
+       while not Eof do
+       begin
+         if not VarIsNull(ZakazQuery['ZAK']) then
+         begin
+           ClientDataSet1.Append;
+           ClientDataSet1['item']:= ZakazQuery['item'];
+           ClientDataSet1['tovar_name']:= ZakazQuery['tovar_name'] ;
+           ClientDataSet1['kolvo']:= ZakazQuery['zak'];
+//           ClientDataSet1['sender_market_code']:= ;
+           ClientDataSet1['dest_market_code']:= curMarket;
+           ClientDataSet1.Post;
+         end;
+         Next;
+       end;
+       ZakazQuery.Locate('ITEM', curItem, []);
+       EnableControls;
+     end;
+     ClientDataSet1.SaveToFile(SaveDialog1.FileName);
+     ClientDataSet1.Close;
+   end;
+
 end;
 
 procedure TZakazFrm.ChangeZakazOrder(FieldNo: Integer);
@@ -860,6 +948,134 @@ begin
     end;
 end;
 
+procedure TZakazFrm.XML1Click(Sender: TObject);
+begin
+   with SaveDialog1 do
+   begin
+     InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+     Filter:= 'Файлы заказов (*.xml) |*.xml';
+     DefaultExt:= 'xml';
+   end;
+
+   if SaveDialog1.Execute then
+     with ShopMainForm.pFIBService do
+     begin
+       SelectSQL.Clear;
+       SelectSQL.Add('select Z.ITEM, T.TOVAR_NAME, Z.KOLVO, null as sender_market_code, Z.MARKET_CODE as dest_market_code from ZAKAZ Z left join SPR_TOVAR T on T.ITEM = Z.ITEM');
+       SelectSQL.Add('where Z.AUTOR_KOD = ' + User_ID.ToString);
+       SelectSQL.Add('order by T.TOVAR_NAME');
+       Open;
+
+       DataSetProvider1.DataSet:= ShopMainForm.pFIBService;
+       ClientDataSet1.Open;
+       ClientDataSet1.SaveToFile(SaveDialog1.FileName);
+       ClientDataSet1.Close;
+       DataSetProvider1.DataSet:= nil;
+
+       Close;
+     end;
+end;
+
+procedure TZakazFrm.XML2Click(Sender: TObject);
+begin
+  if MessageDlg('Текущий заказ будет очищен. Продолжить ?', mtWarning, [mbYes, mbNo], 0) = ID_YES then
+  begin
+    with OpenDialog1 do
+    begin
+      InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+      Filter:= 'Файлы заказов (*.xml) |*.xml';
+      DefaultExt:= 'xml';
+    end;
+
+    if OpenDialog1.Execute then
+    begin
+      ExecSQLStr('delete from ZAKAZ where AUTOR_KOD = ' + User_ID.ToString);
+      with ClientDataSet1 do
+      begin
+        LoadFromFile(OpenDialog1.FileName);
+        First;
+        while not Eof do
+        begin
+          ExecSQLStr('insert into ZAKAZ(MARKET_CODE, ITEM, KOLVO, AUTOR_KOD) values('
+            + IntToStr(ClientDataSet1['dest_market_code']) + ', ''' + ClientDataSet1['item'] + ''', '
+            + StringReplace(FloatToStr(ClientDataSet1['kolvo']), ',', '.', []) + ', ' + User_ID.ToString + ')');
+          Next;
+        end;
+        Close;
+        FileName:= '';
+      end;
+      ZakazQuery.ReopenLocate('ITEM');
+    end;
+  end;
+end;
+
+procedure TZakazFrm.XML3Click(Sender: TObject);
+begin
+
+    with OpenDialog1 do
+    begin
+      InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+      Filter:= 'Файлы заказов (*.xml) |*.xml';
+      DefaultExt:= 'xml';
+    end;
+
+   if OpenDialog1.Execute then
+   begin
+     ListBox1.Items.LoadFromFile(OpenDialog1.FileName);
+
+     with ClientDataSet1 do
+     begin
+       LoadFromFile(OpenDialog1.FileName);
+       First;
+       ListBox1.Items.Clear;
+       while not Eof do
+       begin
+         ListBox1.Items.Add(';' + ClientDataSet1['item'] + ';'
+                  + StringReplace(FloatToStrF(ClientDataSet1['kolvo'], ffGeneral, 15, 3), ',', '.', []) + ';'
+                  + IntToStr(ClientDataSet1['dest_market_code']) + ';');
+         Next;
+       end;
+       Close;
+     end;
+
+     for frxPos:= 0 to ListBox1.Count - 1 do
+       with ShopMainForm.pFIBService do
+       begin
+         SelectSQL.Clear;
+         SelectSQL.Add('select T.TOVAR_NAME, A.SCLAD, T.ARTIKUL, T.REMARK from SPR_TOVAR T left join TOVAR_ADD A on T.ITEM = A.ITEM');
+         SelectSQL.Add('where T.ITEM = ''' + GetStrParam(ListBox1.Items[frxPos], 1) + '''');
+         Open;
+
+         if VarIsNull(ShopMainForm.pFIBService['TOVAR_NAME']) then
+           ListBox1.Items[frxPos]:= ';' + ListBox1.Items[frxPos]
+         else
+           ListBox1.Items[frxPos]:= ';' + StringReplace(ShopMainForm.pFIBService['TOVAR_NAME'], ';', '', [rfReplaceAll]) + ListBox1.Items[frxPos];
+
+         if VarIsNull(ShopMainForm.pFIBService['SCLAD']) then
+           ListBox1.Items[frxPos]:= ';' + ListBox1.Items[frxPos]
+         else
+           ListBox1.Items[frxPos]:= ';' + Trim(ShopMainForm.pFIBService['SCLAD']) + ListBox1.Items[frxPos];
+
+         if VarIsNull(ShopMainForm.pFIBService['ARTIKUL']) then
+           ListBox1.Items[frxPos]:= ListBox1.Items[frxPos] + ';'
+         else
+           ListBox1.Items[frxPos]:= ListBox1.Items[frxPos] + ShopMainForm.pFIBService['ARTIKUL'] + ';';
+
+         if VarIsNull(ShopMainForm.pFIBService['REMARK']) then
+           ListBox1.Items[frxPos]:= ListBox1.Items[frxPos] + ';'
+         else
+           ListBox1.Items[frxPos]:= ListBox1.Items[frxPos] + ShopMainForm.pFIBService['REMARK'] + ';';
+
+         Close;
+       end;
+     ListBox1.Sorted:= False;
+     ListBox1.Sorted:= True;
+//     ListBox1.Items.LoadFromFile('c:\zakaz.txt');
+     frxReport1.LoadFromFile(ShopIni.ReadString('Reports', 'ZakazFile', ReportsPath + 'ZakazFile.fr3'));
+     frxReport1.ShowReport;
+   end;
+end;
+
 procedure TZakazFrm.CLRZakazBtnClick(Sender: TObject);
 var CurItem: String;
 begin
@@ -1073,7 +1289,13 @@ end;
 
 procedure TZakazFrm.N5Click(Sender: TObject);
 begin
-   SaveDialog1.InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+   with SaveDialog1 do
+   begin
+     InitialDir:= ExtractFilePath(ParamStr(0)) + 'SAVES\';
+     Filter:= 'Файлы заказов (*.zak)|*.zak';
+     DefaultExt:= 'zak';
+   end;
+
    if SaveDialog1.Execute then
      with ShopMainForm.pFIBService do
      begin
@@ -1083,13 +1305,6 @@ begin
        SelectSQL.Add('order by T.TOVAR_NAME');
        Open;
 
-       DataSetProvider1.DataSet:= ShopMainForm.pFIBService;
-       ClientDataSet1.Open;
-       ClientDataSet1.SaveToFile(SaveDialog1.FileName);
-       ClientDataSet1.Close;
-       DataSetProvider1.DataSet:= nil;
-
-{
        Screen.Cursor:= crHourGlass;
        AssignFile(f, SaveDialog1.FileName);
        Rewrite(f);
@@ -1108,7 +1323,7 @@ begin
         FormatSettings.DecimalSeparator:= TmpSep;
 
       end;
-}
+
        Close;
      end;
 end;
@@ -1341,7 +1556,7 @@ begin
 //     ListBox1.Items.LoadFromFile('c:\zakaz.txt');
      frxReport1.LoadFromFile(ShopIni.ReadString('Reports', 'ZakazFile', ReportsPath + 'ZakazFile.fr3'));
      frxReport1.ShowReport;
-   end;  
+   end;
 end;
 
 procedure TZakazFrm.frxUserDataSet1First(Sender: TObject);

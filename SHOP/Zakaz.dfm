@@ -817,14 +817,35 @@ object ZakazFrm: TZakazFrm
       ImageIndex = 35
       OnClick = N5Click
     end
+    object XML1: TMenuItem
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1074#1077#1089#1100' '#1079#1072#1082#1072#1079' XML'
+      OnClick = XML1Click
+    end
+    object N18: TMenuItem
+      Caption = '-'
+    end
     object N16: TMenuItem
       Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1079#1072#1082#1072#1079' '#1076#1083#1103' '#1074#1099#1073#1088#1072#1085#1085#1099#1093' '#1090#1086#1074#1072#1088#1086#1074' '#1087#1086' '#1090#1077#1082#1091#1097#1077#1084#1091' '#1086#1073#1098#1077#1082#1090#1091
       OnClick = N16Click
+    end
+    object C1: TMenuItem
+      Caption = #1057#1086#1093#1088#1072#1085#1080#1090#1100' '#1079#1072#1082#1072#1079' '#1076#1083#1103' '#1074#1099#1073#1088#1072#1085#1085#1099#1093' '#1090#1086#1074#1072#1088#1086#1074' '#1087#1086' '#1090#1077#1082#1091#1097#1077#1084#1091' '#1086#1073#1098#1077#1082#1090#1091' XML'
+      OnClick = C1Click
+    end
+    object N19: TMenuItem
+      Caption = '-'
     end
     object N6: TMenuItem
       Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1079#1072#1082#1072#1079
       ImageIndex = 34
       OnClick = N6Click
+    end
+    object XML2: TMenuItem
+      Caption = #1047#1072#1075#1088#1091#1079#1080#1090#1100' '#1079#1072#1082#1072#1079' XML'
+      OnClick = XML2Click
+    end
+    object N20: TMenuItem
+      Caption = '-'
     end
     object N7: TMenuItem
       Caption = #1055#1077#1088#1077#1076#1072#1090#1100' '#1074' ->'
@@ -839,6 +860,10 @@ object ZakazFrm: TZakazFrm
       Caption = #1055#1077#1095#1072#1090#1100' '#1092#1072#1081#1083#1072' '#1079#1072#1082#1072#1079#1072
       ImageIndex = 36
       OnClick = N10Click
+    end
+    object XML3: TMenuItem
+      Caption = #1055#1077#1095#1072#1090#1100' '#1092#1072#1081#1083#1072' '#1079#1072#1082#1072#1079#1072' XML'
+      OnClick = XML3Click
     end
     object N14: TMenuItem
       Caption = '-'
@@ -890,6 +915,10 @@ object ZakazFrm: TZakazFrm
       end>
     Variables = <>
     Style = <>
+    object Data: TfrxDataPage
+      Height = 1000.000000000000000000
+      Width = 1000.000000000000000000
+    end
     object Page1: TfrxReportPage
       PaperWidth = 210.000000000000000000
       PaperHeight = 297.000000000000000000
@@ -908,8 +937,8 @@ object ZakazFrm: TZakazFrm
         FillGap.Right = 0
         Frame.Typ = []
         Height = 15.118110240000000000
-        Top = 71.811070000000000000
-        Width = 718.101251175000100000
+        Top = 56.692950000000000000
+        Width = 718.101251175000000000
         DataSet = frxUserDataSet1
         DataSetName = 'frxUserDataSet1'
         RowCount = 0
@@ -988,8 +1017,8 @@ object ZakazFrm: TZakazFrm
         FillGap.Right = 0
         Frame.Typ = []
         Height = 15.118120000000000000
-        Top = 22.677180000000000000
-        Width = 718.101251175000100000
+        Top = 18.897650000000000000
+        Width = 718.101251175000000000
         Condition = '<frxUserDataSet1."SCLAD">'
         StartNewPage = True
         object Memo4: TfrxMemoView

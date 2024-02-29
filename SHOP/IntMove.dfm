@@ -2133,8 +2133,6 @@ object IntMoveForm: TIntMoveForm
         Width = 1034
         Height = 19
         Panels = <>
-        ExplicitTop = 668
-        ExplicitWidth = 1050
       end
     end
     object TabSheet4: TTabSheet
@@ -3364,8 +3362,8 @@ object IntMoveForm: TIntMoveForm
       end
       object DBGrid2: TDBGrid
         Left = 0
-        Top = 159
-        Width = 1058
+        Top = 153
+        Width = 1034
         Height = 530
         Align = alBottom
         DataSource = DataSource2
@@ -3668,7 +3666,7 @@ object IntMoveForm: TIntMoveForm
     Top = 400
   end
   object frxReport1: TfrxReport
-    Version = '2022.3'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
