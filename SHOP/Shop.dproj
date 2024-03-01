@@ -130,16 +130,16 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <DCC_DebugDCUs>true</DCC_DebugDCUs>
-        <VerInfo_Build>872</VerInfo_Build>
+        <VerInfo_Build>874</VerInfo_Build>
         <VerInfo_MajorVer>15</VerInfo_MajorVer>
-        <VerInfo_Keys>CompanyName=;FileVersion=15.0.7.872;InternalName=;LegalCopyright=Guard@2002;LegalTrademarks=;OriginalFilename=;ProductName=Маркет 2024;ProductVersion=15.0.7;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName)</VerInfo_Keys>
+        <VerInfo_Keys>CompanyName=;FileVersion=15.0.8.874;InternalName=;LegalCopyright=Guard@2002;LegalTrademarks=;OriginalFilename=;ProductName=Маркет 2024;ProductVersion=15.0.8;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName);FileDescription=$(MSBuildProjectName)</VerInfo_Keys>
         <BT_BuildType>Debug</BT_BuildType>
         <AppDPIAwarenessMode>unaware</AppDPIAwarenessMode>
         <Icon_MainIcon>Shop_Icon.ico</Icon_MainIcon>
         <VerInfo_Debug>true</VerInfo_Debug>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <VerInfo_Release>7</VerInfo_Release>
+        <VerInfo_Release>8</VerInfo_Release>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Win64)'!=''">
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>

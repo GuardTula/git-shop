@@ -3,7 +3,7 @@ object ZakazAutoForm: TZakazAutoForm
   Top = 149
   BorderStyle = bsDialog
   ClientHeight = 482
-  ClientWidth = 406
+  ClientWidth = 416
   Color = clBtnFace
   ParentFont = True
   KeyPreview = True

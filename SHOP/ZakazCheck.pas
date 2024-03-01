@@ -66,8 +66,9 @@ type
     procedure DBGrid2DrawColumnCell(Sender: TObject; const Rect: TRect;
       DataCol: Integer; Column: TColumn; State: TGridDrawState);
     procedure OKCheckCheckBoxClick(Sender: TObject);
-    procedure AddItem2Zakaz(const AddItem: String; AddZakazKolvo: Integer);
+    procedure AddItem2Zakaz(const AddItem: String; AddZakazKolvo: Double);
     procedure AddFromFile(const FileName: String);
+    procedure CreateNewZakazTemplate;
     procedure SaveZakazFileMenuItemClick(Sender: TObject);
     procedure FTP1Click(Sender: TObject);
     procedure OpenFileZakazMenuItemClick(Sender: TObject);
@@ -96,11 +97,74 @@ uses ShopMain, Queue, EditEnter, FTPFileLoad;
 
 {$R *.dfm}
 
+procedure TZakazCheckForm.CreateNewZakazTemplate;
+begin
+     with ClientDataSet1 do
+     begin
+       Close;
+       FieldDefs.Clear;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 14;
+         Name := 'item';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 80;
+         Name := 'tovar_name';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 30;
+         Name := 'artikul';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 20;
+         Name := 'remark';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftString;
+         Size := 30;
+         Name := 'sclad';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftFloat;
+         Name := 'kolvo';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftFloat;
+         Name := 'zakaz_kolvo';
+       end;
+{
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftInteger;
+         Name := 'sender_market_code';
+       end;
+       with FieldDefs.AddFieldDef do
+       begin
+         DataType := ftInteger;
+         Name := 'dest_market_code';
+       end;
+}
+       CreateDataSet;
+       while not Eof do Delete;
+     end;
+end;
+
 
 {
 // Новый заказ
   if MessageDlg('Если вы не сохранили файл, то все данные будут утерянны. Продолжить ?',  mtWarning, [mbYes, mbNo], 0)= idYES then
-    ClientDataSet1.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Zakaz\' + 'zakaz_template.xml');
+    CreateNewZakazTemplate;
 
 // Все по заказу
 procedure TZakazCheckForm.AllCheckBitBtnClick(Sender: TObject);
@@ -207,7 +271,7 @@ end;
 
 
 }
-procedure TZakazCheckForm.AddItem2Zakaz(const AddItem: String; AddZakazKolvo: Integer);
+procedure TZakazCheckForm.AddItem2Zakaz(const AddItem: String; AddZakazKolvo: Double);
 var CurItem: String;
 begin
   pFIBDataSet1.SelectSQL.Clear;
@@ -268,18 +332,19 @@ procedure TZakazCheckForm.EditKolvoXMLBitBtnClick(Sender: TObject);
 begin
   Application.CreateForm(TEditEnterForm, EditEnterForm);
   EditEnterForm.Edit1.PasswordChar:= #0;
+  EditEnterForm.Edit1.Tag:= 1;
   EditEnterForm.Label1.Visible:= False;
   EditEnterForm.Caption:= 'Количество';
   if ClientDataSet1['KOLVO'] = 0 then
-    EditEnterForm.Edit1.Text:= IntToStr(ClientDataSet1['ZAKAZ_KOLVO'])
+    EditEnterForm.Edit1.Text:= FloatToStr(ClientDataSet1['ZAKAZ_KOLVO'])
   else
-    EditEnterForm.Edit1.Text:= IntToStr(ClientDataSet1['KOLVO']);
+    EditEnterForm.Edit1.Text:= FloatToStr(ClientDataSet1['KOLVO']);
   if EditEnterForm.ShowModal = idOK then
   begin
-      if StrToInt('0' + EditEnterForm.Edit1.Text) >= 0 then
+      if StrToFloat('0' + EditEnterForm.Edit1.Text) >= 0 then
       begin
         ClientDataSet1.Edit;
-        ClientDataSet1['KOLVO']:= StrToInt('0' + EditEnterForm.Edit1.Text);
+        ClientDataSet1['KOLVO']:= StrToFloat('0' + EditEnterForm.Edit1.Text);
         ClientDataSet1.Post;
       end;
   end;
@@ -294,7 +359,7 @@ end;
 
 procedure TZakazCheckForm.FormCreate(Sender: TObject);
 begin
-  ClientDataSet1.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Zakaz\' + 'zakaz_template.xml');
+  CreateNewZakazTemplate;
 end;
 
 procedure TZakazCheckForm.FTP1Click(Sender: TObject);
@@ -359,7 +424,7 @@ begin
         Connect;
         try
          ChangeDir('/files/Zakaz');
-         ShopMainForm.IdFTP1.List(LS, '*.zak', True);
+         ShopMainForm.IdFTP1.List(LS, '*.xml', True);
          for i:= 0 to ShopMainForm.IdFTP1.DirectoryListing.Count-1 do
            FTPFileLoadForm.ValueListEditor1.InsertRow(ShopMainForm.IdFTP1.DirectoryListing.Items[i].FileName,
              FormatDateTime('dd/mm/yyyy hh:mm', ShopMainForm.IdFTP1.DirectoryListing.Items[i].ModifiedDate), True);
@@ -383,7 +448,7 @@ begin
        end;
       if FTPFile <> '' then
       begin
-        ClientDataSet1.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Zakaz\' + 'zakaz_template.xml');
+        CreateNewZakazTemplate;
         AddFromFile(FTPFile);
         DelExists(FTPFile);
         ZakazCheckForm.Caption:= Copy(ExtractFileName(FTPFile), 0, Pos(ExtractFileExt(FTPFile), ExtractFileName(FTPFile))-1);
@@ -492,9 +557,11 @@ procedure TZakazCheckForm.N3Click(Sender: TObject);
 begin
   if MessageDlg('Если вы не сохранили файл, то все данные будут утерянны. Продолжить ?',  mtWarning, [mbYes, mbNo], 0) = idYES then
     begin
-      ClientDataSet1.LoadFromFile(ExtractFilePath(ParamStr(0)) + 'Zakaz\' + 'zakaz_template.xml');
+      CreateNewZakazTemplate;
+
       dlgOpen.InitialDir:= ExtractFilePath(ParamStr(0)) + 'Zakaz\';
-      dlgOpen.Filter:= 'Заказы|*.zak';
+      dlgOpen.Filter:= 'Файлы заказов (*.xml) |*.xml';
+
       if dlgOpen.Execute then AddFromFile(dlgOpen.FileName);
       dlgOpen.Filter:= '';
       ZakazCheckForm.Caption:= Copy(ExtractFileName(dlgOpen.FileName), 0, Pos(ExtractFileExt(dlgOpen.FileName), ExtractFileName(dlgOpen.FileName))-1);
@@ -538,17 +605,17 @@ begin
     TDBGrid(Sender).Canvas.Font.Color := clHighLightText;
   end
   else
-    if (OKCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsInteger = ClientDataSet1.FieldByName('KOLVO').AsInteger)) then
+    if (OKCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsFloat = ClientDataSet1.FieldByName('KOLVO').AsFloat)) then
       TDBGrid(Sender).Canvas.Brush.Color:= clMoneyGreen
     else
-      if (NoCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsInteger > ClientDataSet1.FieldByName('KOLVO').AsInteger)
-        and(ClientDataSet1.FieldByName('KOLVO').AsInteger > 0)) then
+      if (NoCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsFloat > ClientDataSet1.FieldByName('KOLVO').AsFloat)
+        and(ClientDataSet1.FieldByName('KOLVO').AsFloat > 0)) then
         TDBGrid(Sender).Canvas.Brush.Color:= $008080FF
       else
-         if (BlankPosCheckBox.Checked and (ClientDataSet1.FieldByName('KOLVO').AsInteger = 0)) then
+         if (BlankPosCheckBox.Checked and (ClientDataSet1.FieldByName('KOLVO').AsFloat = 0)) then
            TDBGrid(Sender).Canvas.Brush.Color:= clSkyBlue
          else
-           if (OverCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsInteger < ClientDataSet1.FieldByName('KOLVO').AsInteger)) then
+           if (OverCheckCheckBox.Checked and(ClientDataSet1.FieldByName('ZAKAZ_KOLVO').AsFloat < ClientDataSet1.FieldByName('KOLVO').AsFloat)) then
               TDBGrid(Sender).Canvas.Brush.Color:= clAqua
            else
              TDBGrid(Sender).Canvas.Brush.Color:= clWindow;

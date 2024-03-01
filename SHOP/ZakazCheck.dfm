@@ -1402,7 +1402,6 @@ object ZakazCheckForm: TZakazCheckForm
       Caption = #1042#1099#1076#1077#1083#1080#1090#1100' '#1089#1086#1073#1088#1072#1085#1085#1099#1077' '#1087#1086' '#1079#1072#1082#1072#1079#1091
       TabOrder = 7
       OnClick = OKCheckCheckBoxClick
-      ExplicitLeft = 557
     end
     object NoCheckCheckBox: TCheckBox
       Left = 541
@@ -1413,7 +1412,6 @@ object ZakazCheckForm: TZakazCheckForm
       Caption = #1042#1099#1076#1077#1083#1080#1090#1100' '#1085#1077' '#1076#1086#1089#1090#1072#1102#1097#1080#1077
       TabOrder = 8
       OnClick = OKCheckCheckBoxClick
-      ExplicitLeft = 557
     end
     object BlankPosCheckBox: TCheckBox
       Left = 541
@@ -1424,7 +1422,6 @@ object ZakazCheckForm: TZakazCheckForm
       Caption = #1042#1099#1076#1077#1083#1080#1090#1100' '#1087#1088#1086#1087#1091#1097#1077#1085#1085#1099#1077
       TabOrder = 9
       OnClick = OKCheckCheckBoxClick
-      ExplicitLeft = 557
     end
     object OverCheckCheckBox: TCheckBox
       Left = 541
@@ -1435,7 +1432,6 @@ object ZakazCheckForm: TZakazCheckForm
       Caption = #1042#1099#1076#1077#1083#1080#1090#1100' '#1073#1086#1083#1100#1096#1077' '#1079#1072#1082#1072#1079#1072
       TabOrder = 6
       OnClick = OKCheckCheckBoxClick
-      ExplicitLeft = 557
     end
   end
   object DataSetProvider1: TDataSetProvider
@@ -2882,7 +2878,7 @@ object ZakazCheckForm: TZakazCheckForm
     Top = 304
   end
   object frxReport1: TfrxReport
-    Version = '2022.3'
+    Version = '2023.1.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick, pbCopy, pbSelection]
