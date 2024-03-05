@@ -515,15 +515,15 @@ end;
 
 procedure TSmensRepFrm.BitBtn3Click(Sender: TObject);
 begin
-      with ShopMainForm.frxReport1 do
-      begin
-        LoadFromFile(ShopIni.ReadString('Reports', 'Sales005', ReportsPath + 'SmensSale005.fr3'));
-        Script.Variables['BEGD']:= DateTimeToStr(DateTimePicker1.DateTime);
-        Script.Variables['ENDD']:= DateTimeToStr(DateTimePicker2.DateTime);
-        Script.Variables['MARKET_ID']:= GetMarketFltrStr(MarketShow);//FindMarketCode(ComboBox1.Text);
-        Script.Variables['OBJNAME']:= StaticText2.Caption;
-        ShowReport;
-      end;
+  with ShopMainForm.frxReport1 do
+  begin
+    LoadFromFile(ShopIni.ReadString('Reports', 'Sales005', ReportsPath + 'SmensSale005.fr3'));
+    Script.Variables['BEGD']:= DateTimeToStr(DateTimePicker1.DateTime);
+    Script.Variables['ENDD']:= DateTimeToStr(DateTimePicker2.DateTime);
+    Script.Variables['MARKET_ID']:= GetMarketFltrStr(MarketShow);//FindMarketCode(ComboBox1.Text);
+    Script.Variables['OBJNAME']:= StaticText2.Caption;
+    ShowReport;
+  end;
 end;
 
 procedure TSmensRepFrm.BitBtn4Click(Sender: TObject);

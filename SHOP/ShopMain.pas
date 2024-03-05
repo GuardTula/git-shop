@@ -155,6 +155,8 @@ type
     DelDocViewMenuItem: TMenuItem;
     N36: TMenuItem;
     frxChartObject1: TfrxChartObject;
+    N39: TMenuItem;
+    ManualPinbadCheckbox: TMenuItem;
     procedure AppException(Sender: TObject; E: Exception);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -218,6 +220,7 @@ type
     procedure ZakazCheckToolButtonClick(Sender: TObject);
     procedure DelDocViewMenuItemClick(Sender: TObject);
     procedure N36Click(Sender: TObject);
+    procedure ManualPinbadCheckboxClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -314,6 +317,7 @@ var
    procedure BaseBackUp;// Резервное копирование
    procedure CheckToIntMove(const queue_number, SenderMarketCode, DestMarketCode: Integer); // Передача чека в таблицу перебросок
    procedure ExecSQLStr(SQLStr: String);
+   procedure ExecUpdateBaseSQL;
 
    procedure CreateAccessList;
    procedure UpdAccessForUser(CurUserID: Integer);
@@ -922,16 +926,16 @@ procedure DelDir(DirName: string);
 var SearchRec: TSearchRec;
        GotOne: integer;
 begin
-        GotOne:= FindFirst(DirName + '\*.*', faAnyFile, SearchRec);
-        while GotOne = 0 do
-        begin
-          if ((SearchRec.Attr and faDirectory) = 0) then
-            DeleteFile(DirName + '\' + SearchRec.Name)
-          else if (SearchRec.Name <> '.') and (SearchRec.Name <> '..') then
-          DelDir(DirName + '\' + SearchRec.Name);
-          GotOne:= FindNext(SearchRec);
-        end;
-        FindClose(SearchRec);
+  GotOne:= FindFirst(DirName + '\*.*', faAnyFile, SearchRec);
+  while GotOne = 0 do
+  begin
+    if ((SearchRec.Attr and faDirectory) = 0) then
+      DeleteFile(DirName + '\' + SearchRec.Name)
+    else if (SearchRec.Name <> '.') and (SearchRec.Name <> '..') then
+    DelDir(DirName + '\' + SearchRec.Name);
+    GotOne:= FindNext(SearchRec);
+  end;
+  FindClose(SearchRec);
 end;
 
 procedure BaseBackUp;// Резервное копирование
@@ -940,6 +944,42 @@ begin
   BackUpForm.ShowModal;
   BackUpForm.Free;
 end;
+
+procedure ExecUpdateBaseSQL;
+begin
+{
+select R.RDB$RELATION_NAME, R.RDB$FIELD_POSITION, R.RDB$FIELD_NAME,
+F.RDB$FIELD_LENGTH, F.RDB$FIELD_TYPE, F.RDB$FIELD_SCALE, F.RDB$FIELD_SUB_TYPE
+from RDB$FIELDS F, RDB$RELATION_FIELDS R
+where F.RDB$FIELD_NAME = R.RDB$FIELD_SOURCE and R.RDB$SYSTEM_FLAG = 0
+and RDB$RELATION_NAME = 'HDR_PRIHOD'
+and R.RDB$FIELD_NAME = 'REMARK'
+order by R.RDB$RELATION_NAME, R.RDB$FIELD_POSITION
+}
+  with ShopMainForm.pFIBService do
+  begin
+    SelectSQL.Clear;  // Проверяем наличие поля REMARK в HDR_PRIHOD
+    SelectSQL.Add('select R.RDB$FIELD_NAME from RDB$FIELDS F, RDB$RELATION_FIELDS R');
+    SelectSQL.Add('where F.RDB$FIELD_NAME = R.RDB$FIELD_SOURCE and R.RDB$SYSTEM_FLAG = 0');
+    SelectSQL.Add('and RDB$RELATION_NAME = ''HDR_PRIHOD'' and R.RDB$FIELD_NAME = ''REMARK''');
+    Open;
+    if VarIsNull(ShopMainForm.pFIBService['RDB$FIELD_NAME'])then
+      ExecSQLStr('ALTER TABLE HDR_PRIHOD ADD REMARK VARCHAR(50) CHARACTER SET WIN1251 COLLATE WIN1251');
+    Close;
+
+    SelectSQL.Clear;  // Проверяем наличие поля REMARK в HDR_RASHOD
+    SelectSQL.Add('select R.RDB$FIELD_NAME from RDB$FIELDS F, RDB$RELATION_FIELDS R');
+    SelectSQL.Add('where F.RDB$FIELD_NAME = R.RDB$FIELD_SOURCE and R.RDB$SYSTEM_FLAG = 0');
+    SelectSQL.Add('and RDB$RELATION_NAME = ''HDR_RASHOD'' and R.RDB$FIELD_NAME = ''REMARK''');
+    Open;
+    if VarIsNull(ShopMainForm.pFIBService['RDB$FIELD_NAME'])then
+      ExecSQLStr('ALTER TABLE HDR_RASHOD ADD REMARK VARCHAR(50) CHARACTER SET WIN1251 COLLATE WIN1251');
+    Close;
+
+    ShopMainForm.pFIBTransaction1.CommitRetaining;
+  end;
+end;
+
 
 procedure TShopMainForm.DelDocViewMenuItemClick(Sender: TObject);
 begin
@@ -1236,6 +1276,12 @@ begin
       StatusBar1.Panels[1].Text:= Application.Hint;
 end;
 
+procedure TShopMainForm.ManualPinbadCheckboxClick(Sender: TObject);
+begin
+  ManualPinbadCheckbox.Checked:= not ManualPinbadCheckbox.Checked;
+  ShopIni.WriteBool('PINPAD', 'PinpadEnable', not ManualPinbadCheckbox.Checked);
+end;
+
 procedure TShopMainForm.N26Click(Sender: TObject);
 begin
         Application.CreateForm(TIntMoveForm, IntMoveForm);
@@ -1376,6 +1422,7 @@ begin
         ShopMainForm.IdFTP1.DefStringEncoding:= enUTF8;
         Timer1.Interval:= ShopIni.ReadInteger('Transmit', 'FTPIntervalCheck', 900000); // Интервал проверки FTP
         CheckFTPMenuItem.Visible:= ShopIni.ReadBool('Transmit', 'FTPEnable', False);
+        ManualPinbadCheckbox.Checked:= not ShopIni.ReadBool('PINPAD', 'PinpadEnable', False);
 
         if CheckFTPMenuItem.Visible then
           if ShopIni.ReadBool('Transmit', 'CheckFTP', False) then
@@ -1397,6 +1444,7 @@ begin
         else
           pFIBDatabase1.LibraryName:=  'gds32.dll';
         pFIBDatabase1.Connected:= True;
+        ExecUpdateBaseSQL;
         FIBSQLLogger1.LogFileName:= ExtractFilePath(ParamStr(0)) + 'Shop.sql';
         if ShopIni.ReadBool('Main', 'SQLLogDel', True) then DelExists(FIBSQLLogger1.LogFileName);
         FIBSQLLogger1.ActiveLogging:= ShopIni.ReadBool('Main', 'SQLLog', False);

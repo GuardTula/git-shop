@@ -87,6 +87,8 @@ type
     ToolButton3: TToolButton;
     LabeledEdit1: TLabeledEdit;
     UpdateChangeUsrBtn: TBitBtn;
+    HdrTableREMARK: TFIBStringField;
+    N8: TMenuItem;
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormCreate(Sender: TObject);
@@ -115,6 +117,7 @@ type
     procedure LabeledEdit1KeyPress(Sender: TObject; var Key: Char);
     procedure LabeledEdit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure N8Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -129,7 +132,7 @@ procedure UpdateUsrChange;
 
 implementation
 
-uses ShopMain, NewDoc, VendSumFact, EditPosDoc, TovarRep, Spr, EditEnter;
+uses ShopMain, NewDoc, VendSumFact, EditPosDoc, TovarRep, Spr, EditEnter, TovarInfo;
 
 
 {$R *.dfm}
@@ -1323,6 +1326,37 @@ begin
      PosTable.ReopenLocate('KOD');
    end;
    VendSummFactFrm.Free;
+end;
+
+procedure TMoveTovarFrm.N8Click(Sender: TObject);
+var i: Integer;
+    SQLStr: String;
+begin
+  Application.CreateForm(TTovarInfoFrm, TovarInfoFrm);
+  TovarInfoFrm.Label1.Visible:= False;
+  TovarInfoFrm.Edit1.Visible:= False;
+  TovarInfoFrm.Edit1.Text:= ' ';
+  TovarInfoFrm.BitBtn3.Visible:= False;
+  TovarInfoFrm.Image1.Visible:= False;
+  TovarInfoFrm.Caption:= '';
+  TovarInfoFrm.Width:= TovarInfoFrm.Memo1.Width + 30;
+  if not VarIsNull(HdrTable['REMARK']) then TovarInfoFrm.Memo1.Text:= HdrTable['REMARK'];
+  TovarInfoFrm.ActiveControl:= TovarInfoFrm.Memo1;
+  if TovarInfoFrm.ShowModal = mrOK then
+  begin
+    i:= HdrTable['KOD'];
+    case MoveTovarFrm.TypeDocComboBox.ItemIndex of
+     0,3,5: SQLStr:= 'update HDR_PRIHOD';
+     1,2,4,6: SQLStr:= 'update HDR_RASHOD';
+    end;
+    SQLStr:= SQLStr + ' set REMARK = ''' + TovarInfoFrm.Memo1.Text + '''';
+    SQLStr:= SQLStr + ' where KOD = ' + IntToStr(HdrTable['KOD']);
+    ExecSQLStr(SQLStr);
+    DataSetReOpen(HdrTable);
+    HdrTable.Locate('KOD', i, []);
+  end;
+
+  TovarInfoFrm.Free;
 end;
 
 end.

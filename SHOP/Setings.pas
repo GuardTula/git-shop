@@ -124,6 +124,7 @@ type
     DataSource4: TDataSource;
     TabSheet9: TTabSheet;
     Edit4: TEdit;
+    LogSQLBtn: TBitBtn;
     procedure BitBtn9Click(Sender: TObject);
     procedure BitBtn8Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -161,6 +162,7 @@ type
     procedure BitBtn13Click(Sender: TObject);
     procedure BitBtn20Click(Sender: TObject);
     procedure Edit4Change(Sender: TObject);
+    procedure LogSQLBtnClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -238,6 +240,11 @@ end;
 procedure TSetingsFrm.LMDFileOpenEdit1Change(Sender: TObject);
 begin
   SpeedButton1.Enabled:= LMDFileOpenEdit1.Text <> '';
+end;
+
+procedure TSetingsFrm.LogSQLBtnClick(Sender: TObject);
+begin
+  ShopMainForm.FIBSQLLogger1.ActiveLogging:= True;
 end;
 
 procedure TSetingsFrm.ComboBox1Change(Sender: TObject);

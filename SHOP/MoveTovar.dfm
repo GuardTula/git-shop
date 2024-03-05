@@ -4,7 +4,7 @@ object MoveTovarFrm: TMoveTovarFrm
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = #1044#1074#1080#1078#1077#1085#1080#1077' '#1090#1086#1074#1072#1088#1072
   ClientHeight = 677
-  ClientWidth = 1054
+  ClientWidth = 1255
   Color = clBtnFace
   Constraints.MinHeight = 600
   Constraints.MinWidth = 800
@@ -23,13 +23,13 @@ object MoveTovarFrm: TMoveTovarFrm
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1054
+    Width = 1255
     Height = 105
     Align = alTop
     BevelInner = bvRaised
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 1050
+    ExplicitWidth = 1054
     object Label2: TLabel
       Left = 376
       Top = 12
@@ -302,16 +302,15 @@ object MoveTovarFrm: TMoveTovarFrm
   object Panel2: TPanel
     Left = 0
     Top = 105
-    Width = 1054
+    Width = 1255
     Height = 572
     Align = alClient
     TabOrder = 1
-    ExplicitWidth = 1050
-    ExplicitHeight = 571
+    ExplicitWidth = 1054
     object Splitter1: TSplitter
       Left = 1
       Top = 185
-      Width = 1052
+      Width = 1253
       Height = 8
       Cursor = crVSplit
       Align = alTop
@@ -323,7 +322,7 @@ object MoveTovarFrm: TMoveTovarFrm
     object DBGrid2: TDBGrid
       Left = 1
       Top = 1
-      Width = 1052
+      Width = 1253
       Height = 184
       Align = alTop
       Constraints.MinHeight = 150
@@ -407,21 +406,27 @@ object MoveTovarFrm: TMoveTovarFrm
           Title.Alignment = taCenter
           Title.Caption = #1044#1072#1090#1072' '#1087#1086#1089#1083#1077#1076#1085#1077#1075#1086' '#1080#1079#1084#1077#1085#1077#1085#1080#1103
           Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'REMARK'
+          Title.Alignment = taCenter
+          Title.Caption = #1055#1088#1080#1084#1077#1095#1072#1085#1080#1077
+          Visible = True
         end>
     end
     object Panel4: TPanel
       Left = 1
       Top = 193
-      Width = 1052
+      Width = 1253
       Height = 378
       Align = alClient
       TabOrder = 1
-      ExplicitWidth = 1048
-      ExplicitHeight = 377
+      ExplicitWidth = 1052
       object DBGrid1: TDBGrid
         Left = 1
         Top = 1
-        Width = 1050
+        Width = 1251
         Height = 376
         Align = alClient
         DataSource = DataSource1
@@ -517,6 +522,10 @@ object MoveTovarFrm: TMoveTovarFrm
     object N7: TMenuItem
       Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1085#1086#1084#1077#1088' '#1085#1072#1082#1083#1072#1076#1085#1086#1081
       OnClick = N7Click
+    end
+    object N8: TMenuItem
+      Caption = #1048#1079#1084#1077#1085#1080#1090#1100' '#1087#1088#1080#1084#1077#1095#1072#1085#1080#1077
+      OnClick = N8Click
     end
     object N6: TMenuItem
       Caption = #1055#1088#1086#1074#1077#1089#1090#1080' '#1082#1072#1082' '#1088#1072#1089#1093#1086#1076#1085#1091#1102
@@ -734,6 +743,11 @@ object MoveTovarFrm: TMoveTovarFrm
     end
     object HdrTableV_NAME: TFIBStringField
       FieldName = 'V_NAME'
+      Size = 50
+      EmptyStrToNull = True
+    end
+    object HdrTableREMARK: TFIBStringField
+      FieldName = 'REMARK'
       Size = 50
       EmptyStrToNull = True
     end

@@ -36,7 +36,6 @@ object ShopMainForm: TShopMainForm
       item
         Width = 50
       end>
-    ExplicitWidth = 1184
   end
   object ToolBar1: TToolBar
     Left = 0
@@ -54,7 +53,6 @@ object ShopMainForm: TShopMainForm
     ParentShowHint = False
     ShowHint = False
     TabOrder = 1
-    ExplicitWidth = 1184
     object ToolButton1: TToolButton
       Left = 0
       Top = 0
@@ -2487,24 +2485,39 @@ object ShopMainForm: TShopMainForm
       object N8: TMenuItem
         Action = ACT_SALES
       end
+      object ManualPinbadCheckbox: TMenuItem
+        Caption = #1056#1091#1095#1085#1086#1081' '#1090#1077#1088#1084#1080#1085#1072#1083
+        GroupIndex = 100
+        OnClick = ManualPinbadCheckboxClick
+      end
+      object N39: TMenuItem
+        Caption = '-'
+        GroupIndex = 100
+      end
       object N9: TMenuItem
         Action = ACT_NAKL
+        GroupIndex = 100
       end
       object N10: TMenuItem
         Action = ACT_ZAKAZ
+        GroupIndex = 100
       end
       object N26: TMenuItem
         Action = ACT_INTMOVE
+        GroupIndex = 100
         OnClick = N26Click
       end
       object N11: TMenuItem
         Caption = '-'
+        GroupIndex = 100
       end
       object N12: TMenuItem
         Action = ACT_EXPENSES
+        GroupIndex = 100
       end
       object N13: TMenuItem
         Action = ACT_UCHET
+        GroupIndex = 100
       end
     end
     object N14: TMenuItem
@@ -2650,7 +2663,7 @@ object ShopMainForm: TShopMainForm
   end
   object pFIBDatabase1: TpFIBDatabase
     AutoReconnect = True
-    DBName = 'D:\GUARD\PROJECT\SHOP\shop.fdb'
+    DBName = 'D:\Guard\GitCopy\SHOP\SHOP.FDB'
     DBParams.Strings = (
       'lc_ctype=WIN1251'
       'password=masterkey'
@@ -2662,7 +2675,6 @@ object ShopMainForm: TShopMainForm
     Timeout = 0
     DesignDBOptions = [ddoIsDefaultDatabase]
     UseRepositories = [urErrorMessagesInfo]
-    LibraryName = 'c:\Program Files (x86)\Firebird\Firebird_2_5\bin\fbclient.dll'
     SQLLogger = FIBSQLLogger1
     AliasName = 'shop'
     WaitForRestoreConnect = 1000

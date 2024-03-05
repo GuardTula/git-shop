@@ -17,6 +17,7 @@ type
     Image1: TImage;
     procedure Edit1Change(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
+    procedure Memo1KeyPress(Sender: TObject; var Key: Char);
   private
     { Private declarations }
   public
@@ -46,6 +47,11 @@ end;
 procedure TTovarInfoFrm.Edit1Change(Sender: TObject);
 begin
       BitBtn1.Enabled:= (Edit1.Text <> '') or(Memo1.Lines.Text <> '');
+end;
+
+procedure TTovarInfoFrm.Memo1KeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key in ['''' ] then Key:= #0;
 end;
 
 end.

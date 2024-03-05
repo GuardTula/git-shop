@@ -20,7 +20,7 @@ object SetingsFrm: TSetingsFrm
     Top = 0
     Width = 942
     Height = 605
-    ActivePage = TabSheet6
+    ActivePage = TabSheet4
     Align = alClient
     TabOrder = 0
     object TabSheet3: TTabSheet
@@ -478,6 +478,15 @@ object SetingsFrm: TSetingsFrm
         Height = 17
         Caption = #1054#1082#1088#1091#1075#1083#1077#1085#1080#1077' '#1076#1086' '#1088#1091#1073#1083#1077#1081', '#1094#1077#1085' '#1073#1086#1083#1100#1096#1077' 100 '#1088#1091#1073'.'
         TabOrder = 4
+      end
+      object LogSQLBtn: TBitBtn
+        Left = 16
+        Top = 520
+        Width = 75
+        Height = 25
+        Caption = 'LogSQL'
+        TabOrder = 5
+        OnClick = LogSQLBtnClick
       end
     end
     object TabSheet1: TTabSheet
