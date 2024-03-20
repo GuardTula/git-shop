@@ -56,7 +56,10 @@ begin
         end;
         Close;
       end;
-      ComboBox1.ItemIndex:= 0;
+      if ComboBox1.Items.Count > 1 then
+        ComboBox1.ItemIndex:= 1
+      else
+        ComboBox1.ItemIndex:= 0;
       DateTimePicker1.DateTime:= Now;
 end;
 

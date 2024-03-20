@@ -11,10 +11,8 @@ object PayEditFrm: TPayEditFrm
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
-  OldCreateOrder = False
   Position = poScreenCenter
   OnCreate = FormCreate
-  PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
     Left = 8
@@ -56,15 +54,15 @@ object PayEditFrm: TPayEditFrm
     Top = 24
     Width = 145
     Height = 21
-    Date = 38145.625000000000000000
-    Time = 38145.625000000000000000
+    Date = 38145.000000000000000000
+    Time = 0.625000000000000000
     DateFormat = dfLong
     TabOrder = 0
     OnKeyDown = DateTimePicker1KeyDown
   end
   object ComboBox1: TComboBox
-    Left = 248
-    Top = 24
+    Left = 249
+    Top = 25
     Width = 145
     Height = 22
     Style = csOwnerDrawFixed

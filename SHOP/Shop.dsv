@@ -180,19 +180,19 @@ EditViewName=D:\Guard\GitCopy\SHOP\Setings.pas
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFpha2F6Q2hlY2sucGFz]
 Module=D:\Guard\GitCopy\SHOP\ZakazCheck.pas
-CursorX=141
-CursorY=618
-TopLine=599
+CursorX=1
+CursorY=702
+TopLine=688
 LeftCol=1
 Elisions=
 Bookmarks=
-EditViewName=D:\Guard\GitCopy\SHOP\ZakazCheck.pas
+EditViewName=
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFNob3BNYWluLnBhcw==]
 Module=D:\Guard\GitCopy\SHOP\ShopMain.pas
-CursorX=1
-CursorY=1691
-TopLine=1689
+CursorX=11
+CursorY=517
+TopLine=470
 LeftCol=1
 Elisions=
 Bookmarks=
@@ -250,12 +250,12 @@ EditViewName=D:\Guard\GitCopy\SHOP\MoveTovar.pas
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXERhdGFTZW5kLnBhcw==]
 Module=D:\Guard\GitCopy\SHOP\DataSend.pas
-CursorX=62
-CursorY=930
-TopLine=928
+CursorX=1
+CursorY=4880
+TopLine=5962
 LeftCol=1
 Elisions=
-Bookmarks=
+Bookmarks={0,5586,3}{9,6005,3}
 EditViewName=D:\Guard\GitCopy\SHOP\DataSend.pas
 
 [ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFRvdmFySW5mby5wYXM=]
@@ -287,4 +287,14 @@ LeftCol=1
 Elisions=
 Bookmarks=
 EditViewName=D:\Guard\GitCopy\SHOP\SmensReports.pas
+
+[ClosedView_RDpcR3VhcmRcR2l0Q29weVxTSE9QXFBheUVkaXQucGFz]
+Module=D:\Guard\GitCopy\SHOP\PayEdit.pas
+CursorX=6
+CursorY=61
+TopLine=44
+LeftCol=1
+Elisions=
+Bookmarks=
+EditViewName=D:\Guard\GitCopy\SHOP\PayEdit.pas
 
