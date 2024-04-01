@@ -44,7 +44,7 @@ object DataSendFrm: TDataSendFrm
     Top = 0
     Width = 656
     Height = 449
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Align = alTop
     Images = ShopMainForm.ImageList1
     TabOrder = 0
@@ -1496,7 +1496,7 @@ object DataSendFrm: TDataSendFrm
       end
       object BitBtn4: TBitBtn
         Left = 338
-        Top = 68
+        Top = 84
         Width = 191
         Height = 50
         Caption = #1055#1088#1080#1085#1103#1090#1100
@@ -1796,7 +1796,7 @@ object DataSendFrm: TDataSendFrm
       end
       object BitBtn5: TBitBtn
         Left = 338
-        Top = 367
+        Top = 319
         Width = 191
         Height = 50
         Caption = #1055#1077#1088#1077#1076#1072#1090#1100
